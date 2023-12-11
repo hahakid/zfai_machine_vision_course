@@ -1,0 +1,9 @@
+{
+    "serial": "f0221803",
+    "color_format": "RS2_FORMAT_ANY",
+    "color_resolution": "640,480",
+    "depth_format": "RS2_FORMAT_ANY",
+    "depth_resolution": "640,480",
+    "fps": "30",
+    "visual_preset": "RS2_L500_VISUAL_PRESET_MAX_RANGE"
+ }
