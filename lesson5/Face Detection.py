@@ -19,18 +19,22 @@ from evol import test_cascade, train_cascade
 def detect(clf, img):
     img = cv2.imread(img)
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    gray_mini = cv2.resize(gray, (384, 288), interpolation=cv2.INTER_AREA)
+    img_mini = cv2.resize(img, (384, 288), interpolation=cv2.INTER_AREA)
     w_size = 24
-    step = 4
-    w, h, _ = img.shape
+    step = 2
+    w, h, _ = img_mini.shape
     for i in range(0, w - w_size, step):  # sliding window with (24, 24) + step(2, 2)
         for j in range(0, h - w_size, step):
-            print(i, j)
-            window = gray[i:i + w_size, j:j + w_size]  # cur_window pixels
+            # print(i, j)
+            window = gray_mini[i:i + w_size, j:j + w_size]  # cur_window pixels
             if clf.classify(window) == 1:
-                cv2.rectangle(img, (j, i), (j + w_size, i + w_size), (0, 255, 0), 2)  # if True add a Green bounding box
+                cv2.rectangle(img_mini, (j, i), (j + w_size, i + w_size), (0, 255, 0), 2)  # if True add a Green bounding box
 
-    cv2.imwrite("result.jpg", img)
-    cv2.imshow("", img)
+    img_enlarge = cv2.resize(img_mini, (gray.shape[1], gray.shape[0]), interpolation=cv2.INTER_AREA)
+
+    cv2.imwrite("result.jpg", img_enlarge)
+    cv2.imshow("", img_enlarge)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 
