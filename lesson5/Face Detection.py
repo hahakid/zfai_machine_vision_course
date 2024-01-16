@@ -17,12 +17,14 @@ from evol import test_cascade, train_cascade
 # return pixel at (i,j) of a integral image
 
 def detect(clf, img):
+    img = cv2.imread(img)
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     w_size = 24
     step = 4
     w, h, _ = img.shape
     for i in range(0, w - w_size, step):  # sliding window with (24, 24) + step(2, 2)
         for j in range(0, h - w_size, step):
+            print(i, j)
             window = gray[i:i + w_size, j:j + w_size]  # cur_window pixels
             if clf.classify(window) == 1:
                 cv2.rectangle(img, (j, i), (j + w_size, i + w_size), (0, 255, 0), 2)  # if True add a Green bounding box
@@ -34,7 +36,7 @@ def detect(clf, img):
 
 
 def main():
-    mode = "train"
+    mode = "valid"
 
     if mode == 'train':
         # train data is needed

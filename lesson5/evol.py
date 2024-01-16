@@ -14,8 +14,8 @@ def train_cascade(layers, train_data, filename='cascade'):
 
     clf = CascadeClassifier(layers)
     clf.train(training)
-    evaluation(clf, training)
     clf.save(filename)
+    evaluation(clf, training)
 
 # @data @ model paramaters
 def test_cascade(test_data, filename='cascade'):
@@ -59,7 +59,9 @@ def evaluation(clf, data):
     print("False Positive Rate: %d/%d (%f)" % (false_positives, all_negatives, false_positives/all_negatives))
     print("False Negative Rate: %d/%d (%f)" % (false_negatives, all_positive, false_negatives/all_positive))
     print("Accuracy: %d/%d (%f)" % (correct, len(data), correct/len(data)))
-    print("Average Classification Time: %f FPS") % (classification_time/len(data))
+    #print(len(data))
+    #fps = classification_time/len(data)
+    print("Average Classification Time: %f" % (classification_time / len(data)))
 
 
 
